@@ -12,7 +12,13 @@ export class environments1631390240413 implements MigrationInterface {
           name: 'name',
           type: 'varchar',
           isPrimary: true
+        },
+        {
+          name: 'deleted',
+          type: 'bool',
+          default: false,
         }
+
       ]
     }), true)
   }

@@ -5,7 +5,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { GraphQLModule } from '@nestjs/graphql';
 import * as path from 'path';
 
-import { configService } from './config/config.service';
+import { EnvironmentModule } from './environment/environment.module';
+import { CountryModule } from './country/country.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   controllers: [],
@@ -17,10 +19,12 @@ import { configService } from './config/config.service';
     GraphQLModule.forRoot({
       autoSchemaFile: true,
     }),
-    ServeStaticModule.forRoot({
-      rootPath: path.resolve(__dirname, 'static'),
-    }),
-    TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    //ServeStaticModule.forRoot({ // TODO: fix error
+      //rootPath: path.resolve(__dirname, 'static'),
+    //}),
+    DatabaseModule,
+    EnvironmentModule,
+    CountryModule,
   ],
 })
 export class AppModule {}
