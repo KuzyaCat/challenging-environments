@@ -1,5 +1,7 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
+
+import { Region } from '../region/region.entity';
 
 @Entity()
 @ObjectType()
@@ -11,5 +13,10 @@ export class Country {
   @Column()
   @Field()
   icon: string;
+
+  @Column()
+  @Field()
+  @ManyToOne(type => Region, region => region.name)
+  region: Region;
 }
 
