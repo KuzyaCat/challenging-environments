@@ -5,9 +5,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { GraphQLModule } from '@nestjs/graphql';
 import * as path from 'path';
 
+import { DatabaseModule } from './database/database.module';
 import { EnvironmentModule } from './environment/environment.module';
 import { CountryModule } from './country/country.module';
-import { DatabaseModule } from './database/database.module';
+import { RegionModule } from './region/region.module';
 
 @Module({
   controllers: [],
@@ -25,6 +26,7 @@ import { DatabaseModule } from './database/database.module';
     DatabaseModule,
     EnvironmentModule,
     CountryModule,
+    RegionModule,
   ],
 })
 export class AppModule {}
