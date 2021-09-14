@@ -61,7 +61,7 @@ describe('EnvironmentResolver', () => {
   });
 
   describe('getEnvironments', () => {
-    describe('when getEnvironment is called', () => {
+    describe('when getEnvironments is called', () => {
       test('then it should return an environment', async () => {
         expect(resolver.getEnvironments()).toEqual([environmentStub()]);
       });

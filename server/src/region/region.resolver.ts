@@ -4,7 +4,7 @@ import { Region } from './region.entity';
 import { RegionService } from './region.service';
 
 @Resolver(() => Region)
-export class EnvironmentResolver {
+export class RegionResolver {
   constructor(private readonly regionService: RegionService) {}
 
   @Query(() => [Region], { name: 'regions' })
