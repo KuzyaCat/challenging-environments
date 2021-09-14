@@ -25,6 +25,10 @@ describe('EnvironmentService', () => {
     service = moduleRef.get<EnvironmentService>(EnvironmentService);
     repository = moduleRef.get<Repository<Environment>>(getRepositoryToken(Environment));
 
+    repository.create = jest.fn().mockImplementation(() => {
+      return environmentStub();
+    });
+
     jest.clearAllMocks();
   });
 
