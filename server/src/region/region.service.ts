@@ -5,7 +5,7 @@ import { Repository, DeleteResult } from 'typeorm';
 import { Region } from './region.entity';
 
 @Injectable()
-export class EnvironmentService {
+export class RegionService {
   constructor(@InjectRepository(Region) private regionRepository: Repository<Region>) {}
 
   public getAll(): Promise<Region[]> {
