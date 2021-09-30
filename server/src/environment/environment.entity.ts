@@ -10,6 +10,14 @@ export class Environment {
   @Field()
   name: string;
 
+  @PrimaryColumn()
+  @Field()
+  withCountries: boolean = true;
+
+  @PrimaryColumn()
+  @Field()
+  withTeams: boolean = true;
+
   @Column()
   @Field()
   deleted: boolean = false;
