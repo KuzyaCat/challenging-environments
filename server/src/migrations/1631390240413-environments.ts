@@ -14,6 +14,16 @@ export class environments1631390240413 implements MigrationInterface {
           isPrimary: true
         },
         {
+          name: 'withCountries',
+          type: 'varchar',
+          default: true,
+        },
+        {
+          name: 'withTeams',
+          type: 'varchar',
+          default: true,
+        },
+        {
           name: 'deleted',
           type: 'bool',
           default: false,
