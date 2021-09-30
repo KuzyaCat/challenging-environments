@@ -14,7 +14,7 @@ export class Country {
   @Field()
   icon: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   @Field()
   @ManyToOne(type => Region, region => region.name)
   region: Region;
