@@ -66,7 +66,7 @@ describe('EnvironmentService', () => {
         jest.spyOn(repository, 'find');
       })
 
-      test('then it should return an environment', async () => {
+      test('then it should return environments', async () => {
         expect(await service.getAll()).toEqual([environmentStub()]);
       });
     });
