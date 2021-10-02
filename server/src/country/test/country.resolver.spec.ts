@@ -25,7 +25,9 @@ describe('RegionResolver', () => {
         {
           provide: CountryResolver,
           useFactory: () => ({
-            getRegions: jest.fn(() => ([regionStub()])),
+            getCountries: jest.fn(() => ([countryStub()])),
+            getCountriesByRegion: jest.fn(() => ([countryStub()])),
+            getCountry: jest.fn(() => (countryStub())),
           }),
         },
       ],

@@ -68,7 +68,7 @@ describe('CountryService', () => {
       })
 
       test('then it should return country', async () => {
-        expect(await service.getByRegion({ name: countryStub().name })).toEqual(countryStub());
+        expect(await service.get({ name: countryStub().name })).toEqual(countryStub());
       });
     });
   });

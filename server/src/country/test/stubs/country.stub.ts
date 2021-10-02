@@ -6,7 +6,7 @@ export const countryStub = (): Country => {
   return {
     name: 'Test country',
     icon: 'Test country icon',
-    region: regionStub,
+    region: regionStub(),
   }
 }
 

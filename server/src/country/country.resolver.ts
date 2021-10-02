@@ -15,7 +15,7 @@ export class CountryResolver {
 
   @Query(() => [Country], { name: 'countries' })
   getCountriesByRegion(@Args() getCountryArgs: GetCountryArgs): Promise<Country[]> {
-    return this.countryService.getAll();
+    return this.countryService.getByRegion({ region: getCountryArgs.name });
   }
 
   @Query(() => [Country], { name: 'country' })
