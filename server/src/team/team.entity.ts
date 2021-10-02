@@ -16,15 +16,7 @@ export class Team {
 
   @Column()
   @Field()
-  active: boolean = true;
-
-  @Column()
-  @Field()
   logo: string;
-
-  @Column()
-  @Field()
-  evaluation: number = 0;
 
   @Column({ type: 'varchar' })
   @Field()
@@ -33,30 +25,38 @@ export class Team {
 
   @Column()
   @Field()
-  matches: number = 0;
+  active?: boolean = true;
 
   @Column()
   @Field()
-  wins: number = 0;
+  evaluation?: number = 0;
 
   @Column()
   @Field()
-  draws: number = 0;
+  matches?: number = 0;
 
   @Column()
   @Field()
-  loses: number = 0;
+  wins?: number = 0;
 
   @Column()
   @Field()
-  points_earned: number = 0;
+  draws?: number = 0;
 
   @Column()
   @Field()
-  enemy_points_earned: number = 0;
+  loses?: number = 0;
 
   @Column()
   @Field()
-  points_difference: number = 0;
+  points_earned?: number = 0;
+
+  @Column()
+  @Field()
+  enemy_points_earned?: number = 0;
+
+  @Column()
+  @Field()
+  points_difference?: number = 0;
 }
 
