@@ -19,8 +19,8 @@ export class CountryService {
     });
   }
 
-  public getByRegion(getCountryArgs: GetCountryArgs): Promise<Country> {
-    return this.countryRepository.findOne({
+  public getByRegion(getCountryArgs: GetCountryArgs): Promise<Country[]> {
+    return this.countryRepository.find({
       where: { region: getCountryArgs.region },
     });
   }
