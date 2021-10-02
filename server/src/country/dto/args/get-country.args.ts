@@ -4,9 +4,9 @@ import { IsNotEmpty } from 'class-validator';
 @ArgsType()
 export class GetCountryArgs {
   @Field()
-  name: string;
+  name?: string;
 
   @Field()
-  region: string;
+  region?: string;
 }
 

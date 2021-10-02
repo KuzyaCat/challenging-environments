@@ -2,28 +2,29 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { CountryService } from '../';
+import { CountryService } from '../country.service';
 import { CountryModel } from '../test/support/country.model';
-import { Region} from '../region.entity';
+import { Country } from '../country.entity';
 import { MockType } from '../../__mocks__/mock-type';
-import { regionStub } from './stubs/region.stub';
+import { countryStub } from './stubs/country.stub';
+import { regionStub } from '../../region/test/stubs/region.stub';
 
-describe('RegionService', () => {
-  let repository: Repository<Region>;
-  let service: RegionService;
+describe('CountryService', () => {
+  let repository: Repository<Country>;
+  let service: CountryService;
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
-        RegionService,
+        CountryService,
         {
-          provide: getRepositoryToken(Region),
-          useClass: RegionModel
+          provide: getRepositoryToken(Country),
+          useClass: CountryModel
         },
       ],
     }).compile();
-    service = moduleRef.get<RegionService>(RegionService);
-    repository = moduleRef.get<Repository<Region>>(getRepositoryToken(Region));
+    service = moduleRef.get<CountryService>(CountryService);
+    repository = moduleRef.get<Repository<Country>>(getRepositoryToken(Country));
 
     jest.clearAllMocks();
   });
@@ -36,14 +37,38 @@ describe('RegionService', () => {
     expect(typeof repository.find).toBe('function');
   });
 
-  describe('find', () => {
-    describe('when find is called', () => {
+  describe('getAll', () => {
+    describe('when getAll is called', () => {
       beforeEach(async () => {
         jest.spyOn(repository, 'find');
       })
 
-      test('then it should return regions', async () => {
-        expect(await service.getAll()).toEqual([regionStub()]);
+      test('then it should return countries', async () => {
+        expect(await service.getAll()).toEqual([countryStub()]);
+      });
+    });
+  });
+
+  describe('getByRegion', () => {
+    describe('when getByRegion is called', () => {
+      beforeEach(async () => {
+        jest.spyOn(repository, 'find');
+      })
+
+      test('then it should return countries by specific region', async () => {
+        expect(await service.getByRegion({ region: countryStub().region.name })).toEqual([countryStub()]);
+      });
+    });
+  });
+
+  describe('get', () => {
+    describe('when get is called', () => {
+      beforeEach(async () => {
+        jest.spyOn(repository, 'findOne');
+      })
+
+      test('then it should return country', async () => {
+        expect(await service.getByRegion({ name: countryStub().name })).toEqual(countryStub());
       });
     });
   });
