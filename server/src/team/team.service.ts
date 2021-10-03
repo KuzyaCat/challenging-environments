@@ -20,8 +20,8 @@ export class TeamService {
     return this.teamRepository.find();
   }
 
-  public get(getTeamArgs: GetTeamArgs): Promise<Team> {
-    return this.teamRepository.findOne(getTeamArgs);
+  public getById(getTeamArgs: GetTeamArgs): Promise<Team> {
+    return this.teamRepository.findOne({ id: getTeamArgs.id });
   }
 
   public async create(createTeamData: CreateTeamInput): Promise<Team> {

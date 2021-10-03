@@ -7,36 +7,39 @@ export class UpdateTeamInput {
   id: number;
 
   @Field()
-  name: string;
+  name?: string;
 
   @Field()
-  country: string;
+  country?: string;
 
   @Field()
-  active: boolean;
+  active?: boolean;
 
   @Field()
-  logo: string;
+  logo?: string;
 
   @Field()
-  matches: number;
+  matches?: number;
 
   @Field()
-  wins: number;
+  wins?: number;
 
   @Field()
-  draws: number;
+  draws?: number;
 
   @Field()
-  loses: number;
+  loses?: number;
 
   @Field()
-  points_earned: number;
+  points_earned?: number;
 
   @Field()
-  enemy_points_earned: number;
+  enemy_points_earned?: number;
 
   @Field()
-  points_difference: number;
+  points_difference?: number;
+
+  @Field()
+  evaluation?: number;
 }
 

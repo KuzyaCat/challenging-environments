@@ -2,16 +2,7 @@ import { Team } from '../../team.entity';
 import { Country } from '../../../country/country.entity';
 import { countryStub } from '../../../country/test/stubs/country.stub';
 
-export const createTeamStub = (): Team => {
-  return {
-    id: 1,
-    name: 'Test team',
-    country: countryStub(),
-    logo: 'Test team logo',
-  }
-}
-
-export const udpateTeamStub = (): Team => {
+export const teamStub = (): Team => {
   return {
     id: 2,
     name: 'Test team',
