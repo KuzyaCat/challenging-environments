@@ -9,6 +9,7 @@ import { DatabaseModule } from './database/database.module';
 import { EnvironmentModule } from './environment/environment.module';
 import { CountryModule } from './country/country.module';
 import { RegionModule } from './region/region.module';
+import { TeamModule } from './team/team.module';
 
 @Module({
   controllers: [],
@@ -27,6 +28,7 @@ import { RegionModule } from './region/region.module';
     EnvironmentModule,
     CountryModule,
     RegionModule,
+    TeamModule,
   ],
 })
 export class AppModule {}
