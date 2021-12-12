@@ -6,7 +6,7 @@ import { Environment } from '../environment/environment.entity';
 
 @Entity()
 @ObjectType()
-export class TeamIndicator {
+export class PlayerIndicator {
   @PrimaryColumn()
   @Field()
   id: number;

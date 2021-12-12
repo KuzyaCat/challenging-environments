@@ -7,4 +7,7 @@ export enum TABLE_NAMES {
   TEAMS_TOURNAMENTS = 'teams_tournaments',
   PLAYERS = 'players',
   MATCHES = 'matches',
+  INDICATOR_TYPES = 'indicator_types',
+  TEAM_INDICATORS = 'team_indicators',
+  PLAYER_INDICATORS = 'player_indicators'
 };

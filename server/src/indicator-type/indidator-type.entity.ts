@@ -3,7 +3,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 
 @Entity()
 @ObjectType()
-export class TeamIndicator {
+export class IndicatorType {
   @PrimaryColumn()
   @Field()
   name: string;
