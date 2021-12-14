@@ -3,6 +3,7 @@ import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { TeamIndicator } from './team-indicator.entity';
 import { TeamIndicatorService } from './team-indicator.service';
 import { GetTeamIndicatorArgs } from './dto/get-team-indicator.args';
+import { GetTeamIndicatorsArgs } from './dto/get-team-indicators.args';
 import { CreateTeamIndicatorInput } from './input/create-team-indicator.input';
 import { UpdateTeamIndicatorInput } from './input/update-team-indicator.input';
 import { DeleteTeamIndicatorInput } from './input/delete-team-indicator.input';
@@ -11,14 +12,14 @@ import { DeleteTeamIndicatorInput } from './input/delete-team-indicator.input';
 export class TeamIndicatorResolver {
   constructor(private readonly teamIndicatorService: TeamIndicatorService) {}
 
-  @Query(() => TeamIndicator, { name: 'team', nullable: true })
+  @Query(() => TeamIndicator, { name: 'teamIndicator', nullable: true })
   getTeamIndicator(@Args() getTeamIndicatorArgs: GetTeamIndicatorArgs): Promise<TeamIndicator> {
     return this.teamIndicatorService.get(getTeamIndicatorArgs);
   }
 
   @Query(() => [TeamIndicator], { name: 'teamIndicators' })
-  getTeamIndicators(@Args() getTeamIndicatorArgs: GetTeamIndicatorArgs): Promise<TeamIndicator[]> {
-    return this.teamIndicatorService.getAll(getTeamIndicatorArgs);
+  getTeamIndicators(@Args() getTeamIndicatorsArgs: GetTeamIndicatorsArgs): Promise<TeamIndicator[]> {
+    return this.teamIndicatorService.getAll(getTeamIndicatorsArgs);
   }
 
   @Mutation(() => TeamIndicator)

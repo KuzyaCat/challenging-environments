@@ -13,7 +13,7 @@ export class TeamResolver {
 
   @Query(() => Team, { name: 'team', nullable: true })
   getTeam(@Args() getTeamArgs: GetTeamArgs): Promise<Team> {
-    return this.teamService.get(getTeamArgs);
+    return this.teamService.getById(getTeamArgs);
   }
 
   @Query(() => [Team], { name: 'environments' })

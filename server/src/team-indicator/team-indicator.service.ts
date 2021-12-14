@@ -4,6 +4,7 @@ import { Repository, DeleteResult } from 'typeorm';
 
 import { TeamIndicator } from './team-indicator.entity';
 import { GetTeamIndicatorArgs } from './dto/get-team-indicator.args';
+import { GetTeamIndicatorsArgs } from './dto/get-team-indicators.args';
 import { CreateTeamIndicatorInput } from './input/create-team-indicator.input';
 import { UpdateTeamIndicatorInput } from './input/update-team-indicator.input';
 import { DeleteTeamIndicatorInput } from './input/delete-team-indicator.input';
@@ -37,8 +38,8 @@ export class TeamIndicatorService {
     return this.teamIndicatorRepository.findOne(teamIndicatorArgs);
   }
 
-  public getAll(teamIndicatorArgs: GetTeamIndicatorArgs): Promise<TeamIndicator[]> {
-    return this.teamIndicatorRepository.find({ where: { environment: teamIndicatorArgs.environment } });
+  public getAll(getTeamIndicatorsArgs: GetTeamIndicatorsArgs): Promise<TeamIndicator[]> {
+    return this.teamIndicatorRepository.find(getTeamIndicatorsArgs);
   }
 
   public async delete(deleteTeamIndicatorInput: DeleteTeamIndicatorInput): Promise<TeamIndicator> {
