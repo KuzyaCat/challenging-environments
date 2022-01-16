@@ -12,6 +12,6 @@ export class DeleteTeamIndicatorInput {
 
   @Field()
   @IsNotEmpty()
-  environment: Environment;
+  environment: string;
 }
 
