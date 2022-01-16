@@ -4,9 +4,9 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { IndicatorType } from '../indicator-type/indidator-type.entity';
 import { Environment } from '../environment/environment.entity';
 
-@Entity({ name: 'team_indicators' })
+@Entity()
 @ObjectType()
-export class TeamIndicator {
+export class PlayerIndicator {
   @PrimaryColumn()
   @Field()
   id: number;

@@ -10,6 +10,9 @@ import { EnvironmentModule } from './environment/environment.module';
 import { CountryModule } from './country/country.module';
 import { RegionModule } from './region/region.module';
 import { TeamModule } from './team/team.module';
+import { IndicatorTypeModule } from './indicator-type/indicator-type.module';
+import { TeamIndicatorModule } from './team-indicator/team-indicator.module';
+import { PlayerIndicatorModule } from './player-indicator/player-indicator.module';
 
 @Module({
   controllers: [],
@@ -29,6 +32,9 @@ import { TeamModule } from './team/team.module';
     CountryModule,
     RegionModule,
     TeamModule,
+    IndicatorTypeModule,
+    TeamIndicatorModule,
+    PlayerIndicatorModule,
   ],
 })
 export class AppModule {}
