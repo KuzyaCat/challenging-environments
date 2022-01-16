@@ -3,18 +3,18 @@ import { ObjectType, Field } from '@nestjs/graphql';
 
 import { TABLE_NAMES } from '../config/constants/table-names';
 
-@Entity({ name: TABLE_NAMES.ENVIRONMENTS })
+@Entity()
 @ObjectType()
 export class Environment {
   @PrimaryColumn()
   @Field()
   name: string;
 
-  @PrimaryColumn()
+  @Column()
   @Field()
   withCountries: boolean = true;
 
-  @PrimaryColumn()
+  @Column()
   @Field()
   withTeams: boolean = true;
 

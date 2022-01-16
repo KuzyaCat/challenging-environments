@@ -7,6 +7,6 @@ import { Environment } from '../../environment/environment.entity';
 export class GetTeamIndicatorsArgs {
   @Field()
   @IsNotEmpty()
-  environment: Environment;
+  environment?: string;
 }
 

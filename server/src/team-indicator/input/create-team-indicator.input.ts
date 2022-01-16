@@ -12,11 +12,11 @@ export class CreateTeamIndicatorInput {
 
   @Field()
   @IsNotEmpty()
-  environment: Environment;
+  environment: string;
 
   @Field()
   @IsNotEmpty()
-  type: IndicatorType;
+  type: string;
 
   @Field()
   isPrimary: boolean = false;

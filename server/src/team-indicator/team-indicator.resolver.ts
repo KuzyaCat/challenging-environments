@@ -27,8 +27,8 @@ export class TeamIndicatorResolver {
     @Args('createTeamIndicatorData') createTeamIndicatorData: CreateTeamIndicatorInput
   ): Promise<TeamIndicator> {
     return this.teamIndicatorService.create(createTeamIndicatorData);
-  }
 
+  }
   @Mutation(() => TeamIndicator)
   updateTeamIndicator(
     @Args('updateTeamInducatorData') updateTeamInducatorData: UpdateTeamIndicatorInput
