@@ -3,6 +3,7 @@ import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { Team } from './team.entity';
 import { TeamService } from './team.service';
 import { GetTeamArgs } from './dto/args/get-team.args';
+import { GetTeamsArgs } from './dto/args/get-teams.args';
 import { CreateTeamInput } from './dto/input/create-team.input';
 import { UpdateTeamInput } from './dto/input/update-team.input';
 import { DeleteTeamInput } from './dto/input/delete-team.input';
@@ -16,27 +17,27 @@ export class TeamResolver {
     return this.teamService.getById(getTeamArgs);
   }
 
-  @Query(() => [Team], { name: 'environments' })
-  getEnvironments(): Promise<Team[]> {
-    return this.teamService.getAll();
+  @Query(() => [Team], { name: 'teams' })
+  getTeams(@Args() getTeamsArgs: GetTeamsArgs): Promise<Team[]> {
+    return this.teamService.getAll(getTeamsArgs);
   }
 
   @Mutation(() => Team)
-  createEnvironment(
+  createTeam(
     @Args('createTeamData') createTeamData: CreateTeamInput
   ): Promise<Team> {
     return this.teamService.create(createTeamData);
   }
 
   @Mutation(() => Team)
-  updateEnvironment(
+  updateTeam(
     @Args('updateTeamData') updateTeamData: UpdateTeamInput
   ): Promise<Team> {
     return this.teamService.update(updateTeamData);
   }
 
   @Mutation(() => Team)
-  async deleteEnvironment(
+  async deleteTeam(
     @Args('deleteTeamData') deleteTeamData: DeleteTeamInput
   ): Promise<{ message: string; deleted?: boolean }> {
     try {

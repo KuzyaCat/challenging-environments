@@ -12,7 +12,7 @@ export class addTeamIndicators1639346041416 implements MigrationInterface {
       columns: [
         {
           name: 'id',
-          type: 'varchar',
+          type: 'integer',
           isPrimary: true
         },
         {

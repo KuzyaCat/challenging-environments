@@ -9,5 +9,6 @@ export enum TABLE_NAMES {
   MATCHES = 'matches',
   INDICATOR_TYPES = 'indicator_types',
   TEAM_INDICATORS = 'team_indicators',
-  PLAYER_INDICATORS = 'player_indicators'
+  PLAYER_INDICATORS = 'player_indicators',
+  DIVISIONS = 'divisions',
 };

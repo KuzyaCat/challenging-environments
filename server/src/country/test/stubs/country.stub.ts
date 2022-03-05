@@ -5,7 +5,7 @@ import { regionStub } from '../../../region/test/stubs/region.stub';
 export const countryStub = (): Country => {
   return {
     name: 'Test country',
-    icon: 'Test country icon',
+    // icon: 'Test country icon',
     region: regionStub(),
   }
 }

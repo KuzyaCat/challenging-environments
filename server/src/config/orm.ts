@@ -12,7 +12,7 @@ const options: TypeOrmModuleOptions = {
   database: process.env.POSTGRES_DB,
   migrations: [path.resolve(__dirname, '..', 'migrations', '*')],
   entities: [path.resolve(__dirname, '..', '**', '*.entity.*')],
+  synchronize: true,
 }
 
 module.exports = options;
-

@@ -1,9 +1,12 @@
-import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 
 import { Country } from '../country/country.entity';
+import { Division } from '../division/division.entity';
+import { Environment } from '../environment/environment.entity';
+import { TABLE_NAMES } from '../config/constants/table-names';
 
-@Entity()
+@Entity({ name: TABLE_NAMES.TEAMS })
 @ObjectType()
 export class Team {
   @PrimaryColumn()
@@ -16,12 +19,29 @@ export class Team {
 
   @Column()
   @Field()
-  logo: string;
+  logo?: string;
 
   @Column({ type: 'varchar' })
   @Field()
-  @ManyToOne(type => Country, country => country.name)
+  @ManyToOne(type => Country)
+  @JoinColumn({ name: 'country' })
   country: Country;
+
+  @Column({ type: 'varchar' })
+  @Field()
+  @ManyToOne(type => Division)
+  @JoinColumn({ name: 'division' })
+  division: Division;
+
+  @Column({ type: 'varchar' })
+  @Field()
+  @ManyToOne(type => Environment)
+  @JoinColumn({ name: 'environment' })
+  environment: Environment;
+
+  @Column()
+  @Field()
+  isNational: boolean = false;
 
   @Column()
   @Field()

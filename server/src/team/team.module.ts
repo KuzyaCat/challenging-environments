@@ -5,9 +5,11 @@ import { Team } from './team.entity';
 import { TeamService } from './team.service';
 import { TeamResolver } from './team.resolver';
 import { Country } from '../country/country.entity';
+import { Division } from '../division/division.entity';
+import { Environment } from '../environment/environment.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Team]), TypeOrmModule.forFeature([Country])],
+  imports: [TypeOrmModule.forFeature([Team, Country, Division, Environment])],
   providers: [TeamService, TeamResolver],
   exports: [],
 })

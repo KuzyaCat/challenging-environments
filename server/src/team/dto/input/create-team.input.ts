@@ -13,5 +13,14 @@ export class CreateTeamInput {
 
   @Field()
   logo?: string;
+
+  @Field()
+  division?: number;
+
+  @Field()
+  environment: string;
+
+  @Field()
+  evaluation?: number;
 }
 

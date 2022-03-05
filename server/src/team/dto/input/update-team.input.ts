@@ -13,6 +13,12 @@ export class UpdateTeamInput {
   country?: string;
 
   @Field()
+  division?: number;
+
+  @Field()
+  environment: string;
+
+  @Field()
   active?: boolean;
 
   @Field()

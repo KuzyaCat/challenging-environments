@@ -11,7 +11,7 @@ export class addPlayerIndicators1639346048001 implements MigrationInterface {
       columns: [
         {
           name: 'id',
-          type: 'varchar',
+          type: 'integer',
           isPrimary: true
         },
         {
