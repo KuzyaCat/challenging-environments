@@ -11,7 +11,7 @@ import { GetTeamsArgs } from './dto/args/get-teams.args';
 import { CreateTeamInput } from './dto/input/create-team.input';
 import { UpdateTeamInput } from './dto/input/update-team.input';
 import { DeleteTeamInput } from './dto/input/delete-team.input';
-import { ITeamWithJoins } from './utils/types';
+import { NotFoundException } from '../exceptions';
 
 @Injectable()
 export class TeamService {
@@ -29,7 +29,7 @@ export class TeamService {
     });
 
     if (!environmentObj) {
-      throw new Error('Environment not found');
+      throw new NotFoundException('Environment not found');
     }
 
     return this.teamRepository.find({
@@ -51,13 +51,25 @@ export class TeamService {
       where: { name: createTeamData.country },
     });
 
+    if (!country) {
+      throw new NotFoundException('Country not found');
+    }
+
     const division: Division = await this.divisionRepository.findOne({
       where: { id: createTeamData.division },
     });
 
+    if (!division) {
+      throw new NotFoundException('Division not found');
+    }
+
     const environment: Environment = await this.environmentRepository.findOne({
       where: { name: createTeamData.environment }
     });
+
+    if (!environment) {
+      throw new NotFoundException('Environment not found');
+    }
 
     if (country && division && environment) {
       const newTeam: Team = this.teamRepository.create({
@@ -68,8 +80,6 @@ export class TeamService {
       });
       return this.teamRepository.save(newTeam);
     }
-
-    throw new Error('Country or division or environment not found');
   }
 
   public async update(updateTeamData: UpdateTeamInput): Promise<Team> {
@@ -79,29 +89,41 @@ export class TeamService {
       }
     });
 
+    if (!team) {
+      throw new NotFoundException('Team not found');
+    }
+
     const country: Country = await this.countryRepository.findOne({
       where: { name: updateTeamData.country },
     });
+
+    if (!country) {
+      throw new NotFoundException('Country not found');
+    }
 
     const division: Division = await this.divisionRepository.findOne({
       where: { id: updateTeamData.division },
     });
 
+    if (!division) {
+      throw new NotFoundException('Division not found');
+    }
+
     const environment: Environment = await this.environmentRepository.findOne({
       where: { name: updateTeamData.environment }
     });
 
-    if (team && division && environment) {
-      return this.teamRepository.save({
-        ...team,
-        ...updateTeamData,
-        country,
-        division,
-        environment
-      });
+    if (!environment) {
+      throw new NotFoundException('Environment not found');
     }
 
-    return null;
+    return this.teamRepository.save({
+      ...team,
+      ...updateTeamData,
+      country,
+      division,
+      environment
+    });
   }
 
   public async delete(deleteTeamData: DeleteTeamInput): Promise<void> {
@@ -110,7 +132,7 @@ export class TeamService {
     });
 
     if (team) {
-      this.teamRepository.remove(team);
+      await this.teamRepository.remove(team);
     }
   }
 }
