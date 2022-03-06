@@ -4,6 +4,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { Country } from '../country/country.entity';
 import { Division } from '../division/division.entity';
 import { Environment } from '../environment/environment.entity';
+import { Region } from '../region/region.entity';
 import { TABLE_NAMES } from '../config/constants/table-names';
 
 @Entity({ name: TABLE_NAMES.TEAMS })
@@ -26,6 +27,12 @@ export class Team {
   @ManyToOne(type => Country)
   @JoinColumn({ name: 'country' })
   country: Country;
+
+  @Column({ type: 'varchar' })
+  @Field()
+  @ManyToOne(type => Region)
+  @JoinColumn({ name: 'region' })
+  region: Region;
 
   @Column({ type: 'varchar' })
   @Field()

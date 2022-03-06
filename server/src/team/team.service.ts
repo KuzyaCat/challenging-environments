@@ -6,6 +6,7 @@ import { Team } from './team.entity';
 import { Country } from '../country/country.entity';
 import { Division } from '../division/division.entity';
 import { Environment } from '../environment/environment.entity';
+import { Region } from '../region/region.entity';
 import { GetTeamArgs } from './dto/args/get-team.args';
 import { GetTeamsArgs } from './dto/args/get-teams.args';
 import { CreateTeamInput } from './dto/input/create-team.input';
@@ -22,11 +23,12 @@ export class TeamService {
     @InjectRepository(Country) private countryRepository: Repository<Country>,
     @InjectRepository(Division) private divisionRepository: Repository<Division>,
     @InjectRepository(Environment) private environmentRepository: Repository<Environment>,
+    @InjectRepository(Region) private regionRepository: Repository<Region>,
   ) {}
 
   public async getAll(getTeamsArgs: GetTeamsArgs): Promise<Team[]> {
-    const { environment, isNational } = getTeamsArgs;
-    const environmentObj = await this.environmentRepository.findOne({
+    const { environment, isNational, limit, page, order, country, region } = getTeamsArgs;
+    const environmentObj: Environment | null = await this.environmentRepository.findOne({
       where: { name: environment }
     });
 
@@ -34,17 +36,41 @@ export class TeamService {
       throw new NotFoundException('Environment not found');
     }
 
+    let countryObj: Country;
+    if (country) {
+      countryObj = await this.countryRepository.findOne({
+        where: { name: country }
+      });
+
+      if (!countryObj) {
+        throw new NotFoundException('Country not found');
+      }
+    }
+
+    let regionObj: Region;
+    if (region) {
+      const regionObj: Region | null = await this.regionRepository.findOne({
+        where: { name: region }
+      });
+
+      if (!regionObj) {
+        throw new NotFoundException('Region not found');
+      }
+    }
+
     const sortTeamsBy: SortBy<Team> = getSortTeamsBy(getTeamsArgs.sortBy);
-    const sortOrder: SortOrder = getTeamsArgs.order || 'DESC';
-    const skip: number = (getTeamsArgs.page - 1) * getTeamsArgs.limit;
+    const sortOrder: SortOrder = order || 'DESC';
+    const skip: number = (page - 1) * limit;
 
     return this.teamRepository.find({
       where: {
         environment: environmentObj.name,
         isNational,
-        active: true
-      },
-      relations: ['country', 'division'],
+        active: true,
+        ...(countryObj && { country: countryObj }),
+        ...(regionObj && { region: regionObj }),
+      }, 
+      relations: ['country', 'division', 'region'],
       order: {
         [sortTeamsBy]: sortOrder
       },

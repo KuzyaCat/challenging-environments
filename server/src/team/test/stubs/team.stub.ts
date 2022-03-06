@@ -3,6 +3,7 @@ import { Country } from '../../../country/country.entity';
 import { countryStub } from '../../../country/test/stubs/country.stub';
 import { divisionStub } from '../../../division/test/stubs/division.stub';
 import { environmentStub } from '../../../environment/test/stubs/environment.stub';
+import { regionStub } from '../../../region/test/stubs/region.stub';
 
 export const teamStub = (): Team => {
   return {
@@ -10,6 +11,7 @@ export const teamStub = (): Team => {
     name: 'Test team',
     country: countryStub(),
     division: divisionStub(),
+    region: regionStub(),
     logo: 'Test team logo',
     environment: environmentStub(),
     active: true,

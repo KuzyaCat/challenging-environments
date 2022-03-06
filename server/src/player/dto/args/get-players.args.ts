@@ -2,25 +2,22 @@ import { ArgsType, Field } from '@nestjs/graphql';
 import { IsNotEmpty } from 'class-validator';
 
 import { SortOrder } from '../../../config/types.d';
+import { PlayerRole } from '../../utils/types';
 
 @ArgsType()
-export class GetTeamsArgs {
+export class GetPlayersArgs {
   @IsNotEmpty()
   @Field()
   environment: string;
-
-  @IsNotEmpty()
-  @Field()
-  isNational: boolean;
 
   @Field()
   country?: string | null = null;
 
   @Field()
-  region?: string | null = null;
+  sortBy?: string = 'evaluation';
 
   @Field()
-  sortBy?: string = 'evaluation';
+  role?: PlayerRole | null = null;
 
   @Field()
   order?: SortOrder = 'DESC';
