@@ -12,6 +12,8 @@ import { CreateTeamInput } from './dto/input/create-team.input';
 import { UpdateTeamInput } from './dto/input/update-team.input';
 import { DeleteTeamInput } from './dto/input/delete-team.input';
 import { NotFoundException } from '../exceptions';
+import { getSortTeamsBy } from './utils';
+import { SortBy, SortOrder } from '../config/types.d';
 
 @Injectable()
 export class TeamService {
@@ -32,13 +34,22 @@ export class TeamService {
       throw new NotFoundException('Environment not found');
     }
 
+    const sortTeamsBy: SortBy<Team> = getSortTeamsBy(getTeamsArgs.sortBy);
+    const sortOrder: SortOrder = getTeamsArgs.order || 'DESC';
+    const skip: number = (getTeamsArgs.page - 1) * getTeamsArgs.limit;
+
     return this.teamRepository.find({
       where: {
         environment: environmentObj.name,
         isNational,
         active: true
       },
-      relations: ['country', 'division']
+      relations: ['country', 'division'],
+      order: {
+        [sortTeamsBy]: sortOrder
+      },
+      skip,
+      take: getTeamsArgs.limit,
     });
   }
 
