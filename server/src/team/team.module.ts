@@ -11,6 +11,9 @@ import { Region } from '../region/region.entity';
 import { TeamPlayer } from '../team-player/team-player.entity';
 import { PlayerAward } from '../player-award/player-award.entity';
 import { PlayerPlayerIndicator } from '../player-player-indicator/player-player-indicator.entity';
+import { Match } from '../match/match.entity';
+
+import { MatchService } from '../match/match.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -22,8 +25,9 @@ import { PlayerPlayerIndicator } from '../player-player-indicator/player-player-
     TeamPlayer,
     PlayerAward,
     PlayerPlayerIndicator,
+    Match,
   ])],
-  providers: [TeamService, TeamResolver],
+  providers: [TeamService, TeamResolver, MatchService],
   exports: [],
 })
 export class TeamModule {}

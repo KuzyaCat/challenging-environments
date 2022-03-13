@@ -8,6 +8,7 @@ import { Region } from '../region/region.entity';
 import { TeamPlayer } from '../team-player/team-player.entity';
 import { Player } from '../player/player.entity';
 import { Award } from '../award/award.entity';
+import { Match } from '../match/match.entity';
 
 import { TABLE_NAMES } from '../config/constants/table-names';
 
@@ -99,5 +100,7 @@ export class Team {
 
   @Field(() => [Player])
   players: Player[];
-}
 
+  @Field(() => [Match])
+  latestMatches: Match[];
+}
