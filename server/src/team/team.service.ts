@@ -11,6 +11,8 @@ import { TeamPlayer } from '../team-player/team-player.entity';
 import { Player } from '../player/player.entity';
 import { PlayerAward } from '../player-award/player-award.entity';
 import { Award } from '../award/award.entity';
+import { PlayerIndicator } from '../player-indicator/player-indicator.entity';
+import { PlayerPlayerIndicator } from '../player-player-indicator/player-player-indicator.entity';
 
 import { GetTeamArgs } from './dto/args/get-team.args';
 import { GetTeamsArgs } from './dto/args/get-teams.args';
@@ -33,6 +35,7 @@ export class TeamService {
     @InjectRepository(Region) private regionRepository: Repository<Region>,
     @InjectRepository(TeamPlayer) private teamPlayerRepository: Repository<TeamPlayer>,
     @InjectRepository(PlayerAward) private playerAwardRepository: Repository<PlayerAward>,
+    @InjectRepository(PlayerPlayerIndicator) private playerPlayerIndicatorRepository: Repository<PlayerPlayerIndicator>,
   ) {}
 
   public async getAll(getTeamsArgs: GetTeamsArgs): Promise<Team[]> {
@@ -117,13 +120,24 @@ export class TeamService {
       relations: ['player', 'award'],
     });
 
+    const playerPlayerIndicators: PlayerPlayerIndicator[] = await this.playerPlayerIndicatorRepository.find({
+      where: { player: In(playerIds) },
+      relations: ['player', 'playerIndicator'],
+    });
+
     return {
-      ...team, 
+      ...team,
       players: players.map((player) => ({
         ...player,
         awards: playerAwards
-          .filter((award) => award.player.id === player.id)
+          .filter((award: PlayerAward) => award.player.id === player.id)
           .map((playerAward: PlayerAward) => playerAward.award),
+        indicators: playerPlayerIndicators
+          .filter((playerPlayerIndicator: PlayerPlayerIndicator) => playerPlayerIndicator.player.id === player.id)
+          .map((playerPlayerIndicator: PlayerPlayerIndicator) => ({
+            ...playerPlayerIndicator.playerIndicator,
+            value: playerPlayerIndicator.value,
+          })),
       })),
     };
   }

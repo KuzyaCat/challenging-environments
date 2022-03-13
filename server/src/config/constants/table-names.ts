@@ -14,4 +14,5 @@ export enum TABLE_NAMES {
   TEAMS_PLAYERS = 'teams_players',
   AWARDS = 'awards',
   PLAYERS_AWARDS = 'players_awards',
+  PLAYER_PLAYER_INDICATORS = 'players_player_indicators',
 };
