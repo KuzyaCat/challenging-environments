@@ -7,6 +7,8 @@ import { Environment } from '../environment/environment.entity';
 import { Region } from '../region/region.entity';
 import { TeamPlayer } from '../team-player/team-player.entity';
 import { Player } from '../player/player.entity';
+import { Award } from '../award/award.entity';
+
 import { TABLE_NAMES } from '../config/constants/table-names';
 
 @Entity({ name: TABLE_NAMES.TEAMS })
@@ -90,6 +92,10 @@ export class Team {
 
   @OneToMany(type => TeamPlayer, teamPlayer => teamPlayer.team)
   teamPlayers: TeamPlayer[];
+
+  @Field(() => [Award])
+  @OneToMany(type => Award, award => award.id)
+  awards: Award[];
 
   @Field(() => [Player])
   players: Player[];

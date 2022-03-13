@@ -4,6 +4,8 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { Country } from '../country/country.entity';
 import { Environment } from '../environment/environment.entity';
 import { TeamPlayer } from '../team-player/team-player.entity';
+import { Award } from '../award/award.entity';
+
 import { TABLE_NAMES } from '../config/constants/table-names';
 import { PLAYER_ROLE, PLAYER_POSITION  } from '../config/constants';
 
@@ -71,5 +73,11 @@ export class Player {
 
   @Field()
   position: PLAYER_POSITION;
-}
 
+  @OneToMany(type => Award, award => award.id)
+  playerAwards: Award[];
+
+
+  @Field(() => [Award])
+  awards: Award[];
+}
