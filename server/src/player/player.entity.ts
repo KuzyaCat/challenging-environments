@@ -1,10 +1,11 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 
 import { Country } from '../country/country.entity';
 import { Environment } from '../environment/environment.entity';
+import { TeamPlayer } from '../team-player/team-player.entity';
 import { TABLE_NAMES } from '../config/constants/table-names';
-import { PlayerRole } from './utils/types';
+import { PLAYER_ROLE, PLAYER_POSITION  } from '../config/constants';
 
 @Entity({ name: TABLE_NAMES.PLAYERS })
 @ObjectType()
@@ -47,7 +48,7 @@ export class Player {
 
   @Column()
   @Field()
-  role?: PlayerRole;
+  role?: PLAYER_ROLE;
 
   @Column()
   @Field()
@@ -64,5 +65,11 @@ export class Player {
   @ManyToOne(type => Environment)
   @JoinColumn({ name: 'environment' })
   environment: Environment;
+
+  @OneToMany(type => TeamPlayer, teamPlayer => teamPlayer.player)
+  teamPlayers: TeamPlayer[];
+
+  @Field()
+  position: PLAYER_POSITION;
 }
 

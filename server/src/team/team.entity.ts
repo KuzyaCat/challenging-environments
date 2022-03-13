@@ -1,10 +1,12 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 
 import { Country } from '../country/country.entity';
 import { Division } from '../division/division.entity';
 import { Environment } from '../environment/environment.entity';
 import { Region } from '../region/region.entity';
+import { TeamPlayer } from '../team-player/team-player.entity';
+import { Player } from '../player/player.entity';
 import { TABLE_NAMES } from '../config/constants/table-names';
 
 @Entity({ name: TABLE_NAMES.TEAMS })
@@ -85,5 +87,11 @@ export class Team {
   @Column()
   @Field()
   points_difference?: number = 0;
+
+  @OneToMany(type => TeamPlayer, teamPlayer => teamPlayer.team)
+  teamPlayers: TeamPlayer[];
+
+  @Field(() => [Player])
+  players: Player[];
 }
 
