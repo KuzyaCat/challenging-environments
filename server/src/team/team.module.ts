@@ -9,9 +9,10 @@ import { Division } from '../division/division.entity';
 import { Environment } from '../environment/environment.entity';
 import { Region } from '../region/region.entity';
 import { TeamPlayer } from '../team-player/team-player.entity';
+import { PlayerAward } from '../player-award/player-award.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Team, Country, Division, Environment, Region, TeamPlayer])],
+  imports: [TypeOrmModule.forFeature([Team, Country, Division, Environment, Region, TeamPlayer, PlayerAward])],
   providers: [TeamService, TeamResolver],
   exports: [],
 })

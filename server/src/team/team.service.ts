@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult } from 'typeorm';
+import { Repository, DeleteResult, In } from 'typeorm';
 
 import { Team } from './team.entity';
 import { Country } from '../country/country.entity';
@@ -9,6 +9,8 @@ import { Environment } from '../environment/environment.entity';
 import { Region } from '../region/region.entity';
 import { TeamPlayer } from '../team-player/team-player.entity';
 import { Player } from '../player/player.entity';
+import { PlayerAward } from '../player-award/player-award.entity';
+import { Award } from '../award/award.entity';
 
 import { GetTeamArgs } from './dto/args/get-team.args';
 import { GetTeamsArgs } from './dto/args/get-teams.args';
@@ -30,6 +32,7 @@ export class TeamService {
     @InjectRepository(Environment) private environmentRepository: Repository<Environment>,
     @InjectRepository(Region) private regionRepository: Repository<Region>,
     @InjectRepository(TeamPlayer) private teamPlayerRepository: Repository<TeamPlayer>,
+    @InjectRepository(PlayerAward) private playerAwardRepository: Repository<PlayerAward>,
   ) {}
 
   public async getAll(getTeamsArgs: GetTeamsArgs): Promise<Team[]> {
@@ -107,9 +110,22 @@ export class TeamService {
       ...teamPlayer.player,
       position: teamPlayer.position,
     }));
-    console.log('teamsPlayers', teamsPlayers);
+    const playerIds: number[] = players.map((player: Player) => player.id);
 
-    return { ...team, players };
+    const playerAwards: PlayerAward[] = await this.playerAwardRepository.find({
+      where: { player: In(playerIds) },
+      relations: ['player', 'award'],
+    });
+
+    return {
+      ...team, 
+      players: players.map((player) => ({
+        ...player,
+        awards: playerAwards
+          .filter((award) => award.player.id === player.id)
+          .map((playerAward: PlayerAward) => playerAward.award),
+      })),
+    };
   }
 
   public async create(createTeamData: CreateTeamInput): Promise<Team> {
