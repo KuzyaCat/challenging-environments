@@ -10,9 +10,19 @@ import { Environment } from '../environment/environment.entity';
 import { Region } from '../region/region.entity';
 import { TeamPlayer } from '../team-player/team-player.entity';
 import { PlayerAward } from '../player-award/player-award.entity';
+import { PlayerPlayerIndicator } from '../player-player-indicator/player-player-indicator.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Team, Country, Division, Environment, Region, TeamPlayer, PlayerAward])],
+  imports: [TypeOrmModule.forFeature([
+    Team,
+    Country,
+    Division,
+    Environment,
+    Region,
+    TeamPlayer,
+    PlayerAward,
+    PlayerPlayerIndicator,
+  ])],
   providers: [TeamService, TeamResolver],
   exports: [],
 })

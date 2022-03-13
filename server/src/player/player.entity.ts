@@ -5,6 +5,8 @@ import { Country } from '../country/country.entity';
 import { Environment } from '../environment/environment.entity';
 import { TeamPlayer } from '../team-player/team-player.entity';
 import { Award } from '../award/award.entity';
+import { PlayerPlayerIndicator } from '../player-player-indicator/player-player-indicator.entity';
+import { PlayerIndicator } from '../player-indicator/player-indicator.entity';
 
 import { TABLE_NAMES } from '../config/constants/table-names';
 import { PLAYER_ROLE, PLAYER_POSITION  } from '../config/constants';
@@ -77,7 +79,12 @@ export class Player {
   @OneToMany(type => Award, award => award.id)
   playerAwards: Award[];
 
+  @OneToMany(type => PlayerPlayerIndicator, playerPlayerIndicator => playerPlayerIndicator.id)
+  playerPlayerIndicators: PlayerPlayerIndicator[];
 
   @Field(() => [Award])
   awards: Award[];
+
+  @Field(() => [PlayerIndicator])
+  indicators: PlayerIndicator[];
 }
