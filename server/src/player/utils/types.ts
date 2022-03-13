@@ -1,6 +1,0 @@
-export enum PlayerRole {
-  GOALKEEPER = 'GOALKEEPER',
-  DEFENDER = 'DEFENDER',
-  MIDFIELDER = 'MIDFIELDER',
-  ATTACKER = 'ATTACKER'
-};

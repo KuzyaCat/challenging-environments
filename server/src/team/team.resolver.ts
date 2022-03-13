@@ -2,11 +2,13 @@ import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 
 import { Team } from './team.entity';
 import { TeamService } from './team.service';
+
 import { GetTeamArgs } from './dto/args/get-team.args';
 import { GetTeamsArgs } from './dto/args/get-teams.args';
 import { CreateTeamInput } from './dto/input/create-team.input';
 import { UpdateTeamInput } from './dto/input/update-team.input';
 import { DeleteTeamInput } from './dto/input/delete-team.input';
+import { ITeamDetails } from './utils/types';
 
 @Resolver(() => Team)
 export class TeamResolver {
@@ -15,6 +17,11 @@ export class TeamResolver {
   @Query(() => Team, { name: 'team', nullable: true })
   getTeam(@Args() getTeamArgs: GetTeamArgs): Promise<Team> {
     return this.teamService.getById(getTeamArgs);
+  }
+
+  @Query(() => Team, { name: 'teamDetails', nullable: true })
+  getTeamDetails(@Args() getTeamArgs: GetTeamArgs): Promise<ITeamDetails> {
+    return this.teamService.getTeamDetails(getTeamArgs);
   }
 
   @Query(() => [Team], { name: 'teams' })

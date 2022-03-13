@@ -7,13 +7,18 @@ import { Country } from '../country/country.entity';
 import { Division } from '../division/division.entity';
 import { Environment } from '../environment/environment.entity';
 import { Region } from '../region/region.entity';
+import { TeamPlayer } from '../team-player/team-player.entity';
+import { Player } from '../player/player.entity';
+
 import { GetTeamArgs } from './dto/args/get-team.args';
 import { GetTeamsArgs } from './dto/args/get-teams.args';
 import { CreateTeamInput } from './dto/input/create-team.input';
 import { UpdateTeamInput } from './dto/input/update-team.input';
 import { DeleteTeamInput } from './dto/input/delete-team.input';
+
 import { NotFoundException } from '../exceptions';
 import { getSortTeamsBy } from './utils';
+import { ITeamDetails } from './utils/types';
 import { SortBy, SortOrder } from '../config/types.d';
 
 @Injectable()
@@ -24,6 +29,7 @@ export class TeamService {
     @InjectRepository(Division) private divisionRepository: Repository<Division>,
     @InjectRepository(Environment) private environmentRepository: Repository<Environment>,
     @InjectRepository(Region) private regionRepository: Repository<Region>,
+    @InjectRepository(TeamPlayer) private teamPlayerRepository: Repository<TeamPlayer>,
   ) {}
 
   public async getAll(getTeamsArgs: GetTeamsArgs): Promise<Team[]> {
@@ -81,6 +87,29 @@ export class TeamService {
 
   public getById(getTeamArgs: GetTeamArgs): Promise<Team> {
     return this.teamRepository.findOne({ id: getTeamArgs.id });
+  }
+
+  public async getTeamDetails(getTeamArgs: GetTeamArgs): Promise<ITeamDetails> {
+    const team: Team | null = await this.teamRepository.findOne({
+      where: { id: getTeamArgs.id },
+      relations: ['division', 'region', 'country'],
+    });
+    if (!team) {
+      throw new NotFoundException('Team not found');
+    }
+
+    const teamsPlayers: TeamPlayer[] = await this.teamPlayerRepository.find({
+      where: { team: team.id },
+      relations: ['player', 'player.country']
+    });
+
+    const players: Player[] = teamsPlayers.map((teamPlayer: TeamPlayer) => ({
+      ...teamPlayer.player,
+      position: teamPlayer.position,
+    }));
+    console.log('teamsPlayers', teamsPlayers);
+
+    return { ...team, players };
   }
 
   public async create(createTeamData: CreateTeamInput): Promise<Team> {

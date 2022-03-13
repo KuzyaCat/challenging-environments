@@ -11,4 +11,5 @@ export enum TABLE_NAMES {
   TEAM_INDICATORS = 'team_indicators',
   PLAYER_INDICATORS = 'player_indicators',
   DIVISIONS = 'divisions',
+  TEAMS_PLAYERS = 'teams_players',
 };

@@ -2,7 +2,7 @@ import { ArgsType, Field } from '@nestjs/graphql';
 import { IsNotEmpty } from 'class-validator';
 
 import { SortOrder } from '../../../config/types.d';
-import { PlayerRole } from '../../utils/types';
+import { PLAYER_ROLE } from '../../../config/constants';
 
 @ArgsType()
 export class GetPlayersArgs {
@@ -17,7 +17,7 @@ export class GetPlayersArgs {
   sortBy?: string = 'evaluation';
 
   @Field()
-  role?: PlayerRole | null = null;
+  role?: PLAYER_ROLE | null = null;
 
   @Field()
   order?: SortOrder = 'DESC';
