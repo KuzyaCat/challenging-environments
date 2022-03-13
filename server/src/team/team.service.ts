@@ -13,6 +13,9 @@ import { PlayerAward } from '../player-award/player-award.entity';
 import { Award } from '../award/award.entity';
 import { PlayerIndicator } from '../player-indicator/player-indicator.entity';
 import { PlayerPlayerIndicator } from '../player-player-indicator/player-player-indicator.entity';
+import { Match } from '../match/match.entity';
+
+import { MatchService } from '../match/match.service';
 
 import { GetTeamArgs } from './dto/args/get-team.args';
 import { GetTeamsArgs } from './dto/args/get-teams.args';
@@ -36,6 +39,7 @@ export class TeamService {
     @InjectRepository(TeamPlayer) private teamPlayerRepository: Repository<TeamPlayer>,
     @InjectRepository(PlayerAward) private playerAwardRepository: Repository<PlayerAward>,
     @InjectRepository(PlayerPlayerIndicator) private playerPlayerIndicatorRepository: Repository<PlayerPlayerIndicator>,
+    private matchService: MatchService,
   ) {}
 
   public async getAll(getTeamsArgs: GetTeamsArgs): Promise<Team[]> {
@@ -81,7 +85,7 @@ export class TeamService {
         active: true,
         ...(countryObj && { country: countryObj }),
         ...(regionObj && { region: regionObj }),
-      }, 
+      },
       relations: ['country', 'division', 'region'],
       order: {
         [sortTeamsBy]: sortOrder
@@ -125,6 +129,9 @@ export class TeamService {
       relations: ['player', 'playerIndicator'],
     });
 
+    const MATCHES_COUNT = 5;
+    const latestMatches: Match[] = await this.matchService.getLatestTeamMatches({ teamId: team.id, count: MATCHES_COUNT });
+
     return {
       ...team,
       players: players.map((player) => ({
@@ -139,6 +146,7 @@ export class TeamService {
             value: playerPlayerIndicator.value,
           })),
       })),
+      latestMatches,
     };
   }
 
