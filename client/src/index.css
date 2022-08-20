@@ -15,4 +15,8 @@ code {
 :root {
   --black: #272727;
   --blue: #2F80ED;
+  --white: #fff;
+  --gray: #C0C0C0;
+
+  --primary: #fff;
 }

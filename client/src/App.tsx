@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { useActions } from './hooks/actions';
 import { useAppSelector } from './hooks/redux';
 import { useGetEnvironments } from './hooks/environment/useGetEnvironments';
 
 import { Header } from './components/header';
+import { Home } from './pages/home';
 
 import './App.css';
 
@@ -19,7 +21,12 @@ function App() {
 
   return (
     <div className="App">
-      <Header currentEnvironment={currentEnvironment} environments={environmentNames} />
+      <Router>
+        <Header currentEnvironment={currentEnvironment} environments={environmentNames} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
     </div>
   )
 }

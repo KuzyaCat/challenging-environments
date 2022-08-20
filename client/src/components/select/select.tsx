@@ -18,10 +18,10 @@ export const AppSelect: FC<ISelectProps> = (props) => {
     <Select
       sx={{
         height: '2.5em',
-        border: `1px solid ${COLORS.BLUE}`,
-        color: COLORS.BLUE,
+        border: `1px solid ${COLORS.PRIMARY}`,
+        color: COLORS.PRIMARY,
         '& .MuiSelect-icon': {
-          color: COLORS.BLUE,
+          color: COLORS.PRIMARY,
         },
       }}
       value={value}
