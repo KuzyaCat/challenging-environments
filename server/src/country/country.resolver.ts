@@ -13,7 +13,7 @@ export class CountryResolver {
     return this.countryService.getAll();
   }
 
-  @Query(() => [Country], { name: 'countries' })
+  @Query(() => [Country], { name: 'countriesByRegion' })
   getCountriesByRegion(@Args() getCountryArgs: GetCountryArgs): Promise<Country[]> {
     return this.countryService.getByRegion({ region: getCountryArgs.name });
   }

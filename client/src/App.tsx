@@ -7,6 +7,7 @@ import { useGetEnvironments } from './hooks/environment/useGetEnvironments';
 
 import { Header } from './components/header';
 import { Home } from './pages/home';
+import { Teams } from './pages/teams';
 
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
       <Router>
         <Header currentEnvironment={currentEnvironment} environments={environmentNames} />
         <Routes>
+          <Route path="/teams" element={<Teams />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </Router>
