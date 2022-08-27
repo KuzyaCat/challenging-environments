@@ -11,6 +11,15 @@ import { PlayerIndicator } from '../player-indicator/player-indicator.entity';
 import { TABLE_NAMES } from '../config/constants/table-names';
 import { PLAYER_ROLE, PLAYER_POSITION  } from '../config/constants';
 
+@ObjectType()
+export class PlayerTeam {
+  @Field()
+  name: string;
+
+  @Field()
+  logo?: string;
+}
+
 @Entity({ name: TABLE_NAMES.PLAYERS })
 @ObjectType()
 export class Player {
@@ -73,8 +82,13 @@ export class Player {
   @OneToMany(type => TeamPlayer, teamPlayer => teamPlayer.player)
   teamPlayers: TeamPlayer[];
 
+  @Column({ type: 'varchar', nullable: true })
   @Field()
   position: PLAYER_POSITION;
+
+  @Column({ type: 'varchar', nullable: true })
+  @Field()
+  overallRating: string;
 
   @OneToMany(type => Award, award => award.id)
   playerAwards: Award[];
@@ -87,4 +101,7 @@ export class Player {
 
   @Field(() => [PlayerIndicator])
   indicators: PlayerIndicator[];
+
+  @Field(() => PlayerTeam)
+  team?: PlayerTeam;
 }

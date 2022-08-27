@@ -1,5 +1,6 @@
 import { FC, useState, useCallback, ChangeEvent } from 'react';
-import { FormControlLabel, Checkbox } from '@mui/material';
+import { FormControlLabel, Checkbox, Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useGetTeams } from '../../hooks/team/useGetTeams';
 import { useGetRegions } from '../../hooks/region/useGetRegions';
@@ -93,8 +94,8 @@ export const Teams: FC<ITeamsProps> = () => {
   const [isNational, setIsNational] = useState<boolean>(false);
   const [order, setOrder] = useState<string>('DESC');
   const [sortBy, setSortBy] = useState<string>('evaluation');
-  const [country, setCountry] = useState<string | undefined>();
-  const [region, setRegion] = useState<string | undefined>();
+  const [country, setCountry] = useState<string | null>(null);
+  const [region, setRegion] = useState<string | null>(null);
 
   // Handlers
   const handleChangePage = useCallback((event: unknown, newPage: number) => {
@@ -114,9 +115,15 @@ export const Teams: FC<ITeamsProps> = () => {
     setCountry(event.target.value);
   }, []);
 
-  const handleIsNationalFilterChange = useCallback(() => {
+  const handleIsNationalFilterChange = () => {
     setIsNational(!isNational);
-  }, [isNational]);
+  };
+
+  const onClearFilters = () => {
+    setCountry(null);
+    setRegion(null);
+    setIsNational(false);
+  };
 
   // Teams
   const teams = useGetTeams({
@@ -125,8 +132,8 @@ export const Teams: FC<ITeamsProps> = () => {
     limit,
     isNational,
     order,
-    country,
-    region,
+    country: country || undefined,
+    region: region || undefined,
     sortBy,
   });
 
@@ -180,6 +187,19 @@ export const Teams: FC<ITeamsProps> = () => {
           label="National"
           labelPlacement="bottom"
         />
+        <div className="teams-clear">
+          <Button
+            onClick={onClearFilters}
+            variant="outlined"
+            startIcon={<DeleteIcon />}
+            sx={{
+              color: COLORS.PRIMARY,
+              border: `1px solid ${COLORS.PRIMARY}`
+            }}
+          >
+            Clear
+          </Button>
+        </div>
       </div>
       <DataGrid
         columns={columns}
