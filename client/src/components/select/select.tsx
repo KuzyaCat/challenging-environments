@@ -7,11 +7,11 @@ import './select.css';
 
 interface ISelectProps {
   list: string[];
-  value?: string;
+  value: string | null;
   label: string;
   showLabel?: boolean;
   showFormHelper?: boolean;
-  handleChange?: any; // TODO: fix
+  handleChange?: any; // TODO: fix type
 }
 
 export const AppSelect: FC<ISelectProps> = (props) => {
@@ -45,6 +45,9 @@ export const AppSelect: FC<ISelectProps> = (props) => {
         label={label}
         onChange={handleChange}
       >
+        <MenuItem value={null}>
+          <em>None</em>
+        </MenuItem>
         { list.map((name) => <MenuItem key={name} value={name}>{name}</MenuItem>) }
       </Select>
       { showFormHelper && <FormHelperText sx={{ color: COLORS.PRIMARY, fontSize: '0.8em' }}>{label}</FormHelperText> }

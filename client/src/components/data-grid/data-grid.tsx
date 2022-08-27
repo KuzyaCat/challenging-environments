@@ -36,7 +36,7 @@ export const DataGrid: FC<IDataGridProps> = (props) => {
   const { columns, rows, page, limit, handleChangePage, handleChangeRowsPerPage } = props;
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', backgroundColor: COLORS.BLACK }}>
+    <Paper sx={{ width: '100%', overflow: 'hidden', backgroundColor: COLORS.BLACK, fontSize: '1.3em' }}>
       <TableContainer sx={{ maxHeight: 400, backgroundColor: COLORS.BLACK }}>
         <Table style={{ color: COLORS.PRIMARY }} stickyHeader aria-label="sticky table">
           <TableHead>

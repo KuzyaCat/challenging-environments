@@ -2,6 +2,8 @@ import { FC } from 'react';
 
 import { useActions } from '../../hooks/actions';
 
+import { Menu } from '../menu';
+
 import { AppSelect } from '../select';
 
 import './header.css';
@@ -18,6 +20,7 @@ export const Header: FC<IHeaderProps> = (props) => {
 
   return (
     <div className="header">
+      <Menu />
       <AppSelect value={currentEnvironment} label='Environment' list={environments} />
     </div>
   )
