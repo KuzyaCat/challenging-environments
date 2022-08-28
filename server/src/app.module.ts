@@ -14,6 +14,7 @@ import { IndicatorTypeModule } from './indicator-type/indicator-type.module';
 import { TeamIndicatorModule } from './team-indicator/team-indicator.module';
 import { PlayerIndicatorModule } from './player-indicator/player-indicator.module';
 import { PlayerModule } from './player/player.module';
+import { TournamentModule } from './tournament/tournament.module';
 
 @Module({
   controllers: [],
@@ -37,6 +38,7 @@ import { PlayerModule } from './player/player.module';
     TeamIndicatorModule,
     PlayerIndicatorModule,
     PlayerModule,
+    TournamentModule,
   ],
 })
 export class AppModule {}

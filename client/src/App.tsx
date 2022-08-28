@@ -9,6 +9,7 @@ import { Header } from './components/header';
 import { Home } from './pages/home';
 import { Teams } from './pages/teams';
 import { Players } from './pages/players';
+import { Tournaments } from './pages/tournaments';
 
 import { ROUTES } from './common/routes';
 
@@ -30,6 +31,7 @@ function App() {
         <Routes>
           <Route path={ROUTES.TEAMS} element={<Teams />} />
           <Route path={ROUTES.PLAYERS} element={<Players />} />
+          <Route path={ROUTES.TOURNAMENTS} element={<Tournaments />} />
           <Route path={ROUTES.HOME} element={<Home />} />
         </Routes>
       </Router>
