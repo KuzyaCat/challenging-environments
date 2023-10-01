@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 
 import { Country } from '../country/country.entity';
@@ -15,7 +15,7 @@ import { TABLE_NAMES } from '../config/constants/table-names';
 @Entity({ name: TABLE_NAMES.TEAMS })
 @ObjectType()
 export class Team {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('increment')
   @Field()
   id: number;
 
@@ -27,29 +27,37 @@ export class Team {
   @Field()
   logo?: string;
 
-  @Column({ type: 'varchar' })
   @Field()
   @ManyToOne(type => Country)
-  @JoinColumn({ name: 'country' })
+  @JoinColumn({ name: 'countryId' })
   country: Country;
 
   @Column({ type: 'varchar' })
+  countryId?: string;
+
   @Field()
   @ManyToOne(type => Region)
-  @JoinColumn({ name: 'region' })
+  @JoinColumn({ name: 'regionId' })
   region: Region;
 
   @Column({ type: 'varchar' })
+  regionId?: string;
+
   @Field()
   @ManyToOne(type => Division)
-  @JoinColumn({ name: 'division' })
+  @JoinColumn({ name: 'divisionId' })
   division: Division;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'int' })
+  divisionId?: number;
+
   @Field()
   @ManyToOne(type => Environment)
-  @JoinColumn({ name: 'environment' })
+  @JoinColumn({ name: 'environmentId' })
   environment: Environment;
+
+  @Column({ type: 'varchar' })
+  environmentId?: string;
 
   @Column()
   @Field()

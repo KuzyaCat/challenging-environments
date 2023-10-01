@@ -21,13 +21,13 @@ export class Tournament {
   @Field()
   tier: number;
 
-  @Field({ nullable: true })
+  @Field(() => Team, { nullable: true })
   @ManyToOne(type => Team, team => team.id)
   @JoinColumn({ name: 'winnerId' })
   winner?: Team;
 
-  @Column({ nullable: true })
-  winnerId?: number;
+  @Column({ type: 'int', nullable: true })
+  winnerId: number;
 
   @Field()
   @ManyToOne(type => Environment, environment => environment.name)
